@@ -23,7 +23,7 @@ contract Assessment {
         uint _previousBalance = balance;
 
         // make sure this is the owner
-        require(msg.sender == owner, "You are not the owner of this account");
+        require(msg.sender == owner, "Only owner can deposit ETH");
 
         // perform transaction
         balance += _amount;
@@ -39,7 +39,7 @@ contract Assessment {
     error InsufficientBalance(uint256 balance, uint256 withdrawAmount);
 
     function withdraw(uint256 _withdrawAmount) public {
-        require(msg.sender == owner, "You are not the owner of this account");
+        require(msg.sender == owner, "Only owner can withdraw ETH");
         uint _previousBalance = balance;
         if (balance < _withdrawAmount) {
             revert InsufficientBalance({

@@ -53,11 +53,17 @@ export default function HomePage() {
     setATM(atmContract);
   }
 
-  const getBalance = async() => {
-    if (atm) {
-      setBalance((await atm.getBalance()).toNumber());
+  const getBalance = async () => {
+    try {
+      if (atm) {
+        const balance = await atm.getBalance();
+        setBalance(balance.toString());
+      }
+    } catch (error) {
+      console.error(error);
     }
-  }
+  };
+  
 
   const deposit = async() => {
     if (atm) {
@@ -92,8 +98,8 @@ export default function HomePage() {
 
     return (
       <div>
-        <p>Your Account: {account}</p>
-        <p>Your Balance: {balance}</p>
+        <p style = {{color: 'red'}}>Your Account: {account}</p>
+        <p style = {{color: 'red'}}>Your Balance: {balance}</p>
         <button onClick={deposit}>Deposit 1 ETH</button>
         <button onClick={withdraw}>Withdraw 1 ETH</button>
       </div>
@@ -104,7 +110,7 @@ export default function HomePage() {
 
   return (
     <main className="container">
-      <header><h1>Welcome to the Metacrafters ATM!</h1></header>
+      <header><h1 style = {{color: 'cyan'}}>Welcome to Hybrite ATM!</h1></header>
       {initUser()}
       <style jsx>{`
         .container {
